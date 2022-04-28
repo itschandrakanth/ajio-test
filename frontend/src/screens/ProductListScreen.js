@@ -4,7 +4,7 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-// import Paginate from '../components/Paginate'
+import Paginate from '../components/Paginate'
 import {
   listProducts,
   deleteProduct,
@@ -108,7 +108,7 @@ const ProductListScreen = ({ history, match }) => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>₹ {product.price}</td>
+                  <td>₹{product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
@@ -129,7 +129,7 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate pages={pages} page={page} isAdmin={true} /> */}
+          <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
     </>

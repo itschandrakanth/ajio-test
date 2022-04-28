@@ -1,36 +1,37 @@
 import React, { useEffect } from 'react'
+import { LinkContainer } from 'react-router-bootstrap'
 import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { LinkContainer } from 'react-router-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { deleteUser, listUsers } from '../actions/userActions'
+import { listUsers, deleteUser } from '../actions/userActions'
 
-function UserListScreen({ history }) {
-    const dispatch = useDispatch()
+const UserListScreen = ({ history }) => {
+  const dispatch = useDispatch()
 
-    const userList = useSelector((state) => state.userList)
-    const {loading, error, users } = userList
+  const userList = useSelector((state) => state.userList)
+  const { loading, error, users } = userList
 
-    const userLogin = useSelector((state) => state.userLogin)
-    const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
-    const userDelete = useSelector((state) => state.userDelete)
-    const { success: successDelete } = userDelete
+  const userDelete = useSelector((state) => state.userDelete)
+  const { success: successDelete } = userDelete
 
-    useEffect(() => {
-        if(userInfo && userInfo.isAdmin) {
-            dispatch(listUsers()) // from actions
-        } else {
-            history.push('/login')
-        }
-    }, [dispatch, successDelete, history, userInfo]);
-
-    const deleteHandler = (id) => {
-        if(window.confirm('Are you sure you want to delete?')) {
-            dispatch(deleteUser(id)) // from actions
-        }
+  useEffect(() => {
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers())
+    } else {
+      history.push('/login')
     }
+  }, [dispatch, history, successDelete, userInfo])
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteUser(id))
+    }
+  }
+
   return (
     <>
       <h1>Users</h1>
